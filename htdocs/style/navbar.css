@@ -1,0 +1,56 @@
+
+.site-header {
+    height: auto;
+    width: 100%;
+    text-align: center;
+    background: #009be7;
+    color:white;
+}
+
+.site-container {
+    max-width: 960px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 1.5s;
+    display: inline-block;
+}
+
+.site-navbar {
+    float:left;
+    height:100%;
+}
+
+.site-navbar li {
+    float:left;
+    height:100%;
+}
+.site-navbar li{
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+  color: #fff;
+  display: inline-block;
+  display:inline;
+}
+
+.site-navbar a {
+  margin-left:5px;
+  line-height: 80px;
+  border-radius: 4px;
+  background: orange;
+  color:white;
+  display: inline-block;
+ text-align: center;
+  font-size: 15px;
+  height: 100%;
+  text-decoration: none;
+  transition: all 1s ease 0s;
+  width: 100px;
+}
+
+.right {
+    float:right;
+}
+span{
+    display:block;
+    margin-top: -65px;
+}

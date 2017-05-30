@@ -1,0 +1,34 @@
+<?php
+/**
+ * Content
+ */
+namespace nicklas\Connect;
+
+use \PDO;
+
+class Page extends Connect implements \Anax\Common\AppInjectableInterface, \Anax\Common\ConfigureInterface
+{
+    use \Anax\Common\ConfigureTrait,
+        \Anax\Common\AppInjectableTrait;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function editPages($params)
+    {
+
+        // Prepare SQL statement to UPDATE a row in the table
+        $stmt = $this->db->prepare("UPDATE Pages SET about = ?, aboutFilter = ?, footer = ?, footerFilter = ?");
+        // Execute the SQL to Update
+        $stmt->execute($params);
+    }
+
+    public function getPageInfo()
+    {
+        // get res with fetchAll
+        return $this->getRes("SELECT * FROM Pages");
+    }
+}

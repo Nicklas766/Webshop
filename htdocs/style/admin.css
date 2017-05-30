@@ -1,0 +1,59 @@
+.admin-navbar a {
+  margin-left:5px;
+  line-height: 40px;
+  border-radius: 4px;
+  background: orange;
+  color:white;
+  display: inline-block;
+
+  font-size: 15px;
+  height: 100%;
+  text-decoration: none;
+  transition: all 1s ease 0s;
+  width: 100px;
+}
+
+.admin-navbar {
+    height:100%;
+}
+
+.admin-navbar li {
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+  color: #fff;
+  display:inline;
+}
+
+
+input[type=text] {
+     width:70%;
+}
+input[type=datetime] {
+     width:70%;
+}
+button[type=submit] {
+ width:100%;
+ max-width: 700px;
+}
+
+textarea {
+    resize: none;
+    background-color: #fff;
+    border: 1px solid silver;
+    min-height: 300px;
+    padding: 3px;
+    width: 95%;
+}
+
+.contentWidget {
+    color: white;
+    background: #009ce7 none repeat scroll 0 0;
+    border: 2px solid #ccc;
+    border-radius: 0.3em;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-sizing: border-box;
+    flex: 0 0 48%;
+    height: 500px;
+    margin: 0 1% 10px;
+    padding: 10px;
+    text-align: center;
+}

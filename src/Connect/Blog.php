@@ -1,0 +1,80 @@
+<?php
+/**
+ * Content
+ */
+namespace nicklas\Connect;
+
+use \PDO;
+
+class Blog extends Connect implements \Anax\Common\AppInjectableInterface, \Anax\Common\ConfigureInterface
+{
+    use \Anax\Common\ConfigureTrait,
+        \Anax\Common\AppInjectableTrait;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    public function setApp($app)
+    {
+        $this->app = $app;
+        $this->currentUrl = $app->request->getRoute();
+    }
+    public function getMax()
+    {
+        return  $this->db->query("SELECT COUNT(id) FROM Shop_Content")->fetchColumn();
+    }
+    public function showPost($res)
+    {
+        $text = $this->app->textfilter->doFilter(esc($res["data"]), esc($res["filter"]));
+        echo <<<EOD
+
+<div class="content-div">
+<h1>{$res["title"]}</h1>
+<p><i>Senast uppdaterad: <time datetime=''{$res["published_iso8601"]}'' pubdate>{$res["published"]}</time></i></p>
+$text
+</div>
+EOD;
+    }
+
+    public function showBlog($times = "default")
+    {
+        // if default show all by getting max value
+        if ($times == "default") {
+            $times = $this->getMax();
+        }
+        $res = $this->getAllRes("SELECT * FROM Shop_Content WHERE deleted IS NULL AND published <= NOW() ORDER BY published DESC LIMIT 0,$times");
+        //loop through array, put data into table rows
+        $rows = null;
+        foreach ($res as $row) {
+            // if deleted don't show or if not published don't show
+                // else show
+                $rows .= "<div class='widget'>";
+                $rows .= "<h1><a href='blog/" . esc($row['slug']) ."'>" . esc($row['title']) ."</a></h1>";
+                $rows .= "<p><i>Publicerad: ". esc($row['published']) ."</i></p>";
+
+            if (strlen($row["data"]) > 20) {
+                $row["data"] = substr($row["data"], 0, 19) . "...";
+            }
+                $rows .= "".$this->app->textfilter->doFilter(esc($row["data"]), esc($row["filter"]))."</div>";
+        }
+        //print out result as a html table using php heredoc
+        echo<<<EOD
+$rows
+EOD;
+    }
+    public function getBlogPost($slug)
+    {
+        //  Matches blog/slug, display content by slug and type post
+        $sql = <<<EOD
+SELECT *,
+DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
+DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
+FROM Shop_Content WHERE slug = "$slug" AND type = "post" AND (deleted IS NULL OR deleted > NOW()) AND published <= NOW()
+ORDER BY published DESC;
+EOD;
+        // return res
+        return $this->getRes($sql);
+    }
+}

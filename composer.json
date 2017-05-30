@@ -1,0 +1,26 @@
+{
+    "name": "nicklas/anax-lite",
+    "description": "A small PHP framework.",
+    "license": "MIT",
+    "authors": [
+            {
+                "name": "Nicklas Envall",
+                "email": "Nicklas766@live.se"
+            }
+    ],
+    "require": {
+        "anax/request": "^1.0",
+        "anax/url": "^1.0",
+        "anax/router": "^1.0",
+        "anax/response": "^1.0",
+        "anax/view": "^1.0",
+        "mos/cimage": "^0.7.18",
+        "mos/ctextfilter": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {"nicklas\\": "src/"},
+        "files": [
+            "src/functions.php"
+        ]
+    }
+}
